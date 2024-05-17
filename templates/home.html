@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="message">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endif %}
+
+    <h1>Ostatnio dodane</h1>
+
+    <ul class="list-unstyled">
+        {% for blog_post in blog_list %}
+            <div class="col-12 col-md-10 mb-3 mx-auto">
+                <div class="card {% if not blog_post.publish_date %} border border-warning text-dark {% endif %}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ blog_post.title }}</h5>
+                        <p class="card-text">
+                            <small class="text-muted">{{ blog_post.publish_date }}</small>
+                            {% if truncate %}
+                                {{ blog_post.content|linebreaks }}
+                            {% else %}
+                                {{ blog_post.content|truncatewords:100 }}
+                            {% endif %}
+                        </p>
+                        <a href="{{ blog_post.get_absolute_url }}" class="btn btn-primary">View</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </ul>
+{% endblock %}

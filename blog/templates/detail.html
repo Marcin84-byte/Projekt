@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class='row'>
+    <div class='col-12'>
+        <ul class="list-unstyled">
+            <li>
+                <div class='col-12 col-md-10 mb-3 mx-auto'>
+                    <div class='card {% if not object.publish_date %} border border-warning text-dark {% endif %}'>
+                        <div class='card-body'>
+                            <h5 class='card-title'>{{ object.title }}</h5>
+                            <p class='card-text'>
+                                <small class='text-muted'>{{ object.publish_date }}</small>
+                                {% if truncate %}
+                                    {{ object.content|truncatewords:100 }}
+                                {% else %}
+                                    {{ object.content|linebreaks }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+{% if user.is_authenticated %}
+    
+        <div class='col-12'>
+            <a href='{{ object.get_edit_url }}' class="btn btn-primary btn-sm">Edit</a>
+            <a href='{{ object.get_delete_url }}' class="btn btn-danger btn-sm">Delete</a>
+        </div>
+    
+{% else %}
+    <div class='col-12'>
+        <p class="text-danger">Aby edytować lub usunąć ten wpis zaloguj się na swoje konto.</p>
+    </div>
+{% endif %}
+
+
+{% endblock %}

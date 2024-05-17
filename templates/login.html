@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="login-page">
+        <div class="form">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <h3 class="login-title">Logowanie</h3>
+                <div class="input-group mb-3">
+                    <input type="text" name="username" placeholder="Username..." class="form-control">
+                </div>
+                <div class="input-group mb-2">
+                    <input type="password" name="password" placeholder="Password..." class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Zaloguj</button>
+                <p class="message">Nie masz konta? <a href="{% url 'register' %}">Zarejestruj się</a></p>
+            </form>
+        </div>
+    </div>
+{% endblock %}
